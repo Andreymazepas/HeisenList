@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
+import CharacterCard from '../CharacterCard';
 
 
 function App() {
@@ -15,12 +16,11 @@ useEffect(() => {
   return (
     <div className="App">
       <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-      {characters.map(char => 
-        <div style={{width: '150px', height: '200px'}}>
-          <img style={{width: '140px', height: '160px', objectFit: 'cover'}} src={char.img} alt="pfp" />
-          {char.name}
-        </div>
-      )}
+      {characters.map(char => (
+        <React.Fragment key={char.char_id}>
+          <CharacterCard character={char} />
+        </ React.Fragment>
+      ))}
       </div>
     </div>
   );
