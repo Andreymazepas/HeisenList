@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { motion, AnimatePresence } from 'framer-motion';
 import api from "../../services/api";
@@ -9,29 +9,37 @@ function App() {
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [deadFilter, setDeadFilter] = useState(false);
+  const [searchTextInput, setSearchTextInput] = useState('');
+  const [searchText, setSearchText] = useState('');
 
-  const fetchData = useCallback(async () => {
-    const { data } = await api.getCharacters(offset);
-    setCharacters((prevCharacters) => [...prevCharacters, ...data]);
-    setOffset((prevOffset) => prevOffset + 10);
+  const fetchData = async (page = 1, ) => {
+    console.log(page); // pages start at 1 according to infinite-scroller
+    const { data } = await api.getCharacters((page-1)*10, searchText);
+      setCharacters((prevCharacters) =>  page===1 ? data : [...prevCharacters, ...data]);
     setHasMore(data.length === 10);
-  }, [setCharacters, setOffset, offset]);
+    console.log("hasmore: " + hasMore);
+  }
 
   const filterDeceased = (char) => {
-    return !deadFilter || char.status === "Deceased"
+    return !deadFilter || char.status.match(/^(Deceased|Presumed dead)$/)
   }
+
+  useEffect(() => {
+    setCharacters([]);
+    fetchData(1);
+  }, [searchText])
+
+  const handleSearch = () => {
+    setSearchText(searchTextInput);
+  }
+
 
   const animationSpring = {
     type:"spring",
     damping: 25,
     stiffness: 120,
   }
-  const animationExit = {
-    opacity: 0,
-    transition: {
-      duration: 0.4
-    }
-  }
+
 
 
   return (
@@ -41,14 +49,21 @@ function App() {
         checked={deadFilter}
         onChange={(e) => setDeadFilter(e.target.checked)}
       />
+      <label>Show only deceased characters.</label>
+
+      <input type="text" value={searchTextInput} onChange={e => setSearchTextInput(e.target.value)} />
+      <button onClick={handleSearch} >
+        GOOOOOO
+      </button>
       <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+
         <InfiniteScroll
           pageStart={0}
           loadMore={fetchData}
           hasMore={hasMore}
           loader={<div>loading...</div>}
+          initialLoad={false}
         >
-          <AnimatePresence>
 
             {characters
               .filter(filterDeceased)
@@ -57,14 +72,13 @@ function App() {
                   key={char.char_id}
                   layout
                   transition={animationSpring}
-                  exit={animationExit}
                 >
                 <CharacterCard key={char.char_id} character={char} />
                 </motion.div>
               ))}
-          </AnimatePresence>
 
         </InfiniteScroll>
+
       </div>
     </div>
   );
