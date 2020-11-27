@@ -1,26 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../services/api';
-import CharacterCard from '../CharacterCard';
-
+import { useState, useCallback } from "react";
+import InfiniteScroll from "react-infinite-scroller";
+import api from "../../services/api";
+import CharacterCard from "../CharacterCard";
 
 function App() {
-const [characters, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
-useEffect(() => {
-  api.getCharacters()
-    .then(response => {
-      setCharacters(response.data)
-    })
-  
-}, [])
+  const fetchData = useCallback(async () => {
+    const { data } = await api.getCharacters(offset);
+    setCharacters((prevCharacters) => [...prevCharacters, ...data]);
+    setOffset((prevOffset) => prevOffset + 10);
+    setHasMore(data.length === 10);
+  }, [setCharacters, setOffset, offset]);
+
   return (
     <div className="App">
-      <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-      {characters.map(char => (
-        <React.Fragment key={char.char_id}>
-          <CharacterCard character={char} />
-        </ React.Fragment>
-      ))}
+      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={fetchData}
+          hasMore={hasMore}
+          loader={<div>loading...</div>}
+        >
+          {characters.map((char) => (
+            <CharacterCard key={char.char_id} character={char} />
+          ))}
+        </InfiniteScroll>
       </div>
     </div>
   );

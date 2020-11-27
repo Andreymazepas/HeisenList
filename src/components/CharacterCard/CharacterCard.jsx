@@ -5,7 +5,8 @@ const CharacterCard = (props) => {
     
     const { character } = props;
     return (
-        <div  style={{width: '350px', height: '200px', border: '1px solid black', display: 'flex'}}>
+        <div  style={{width: '350px', height: '200px', border: '1px solid black', display: 'flex',
+        background: character.status === 'Deceased' ? '#ffdddd' : 'white'}}>
             <div>
                 <img style={{width: '140px', height: '160px', objectFit: 'cover'}} src={character.img} alt="pfp" />
             </div>

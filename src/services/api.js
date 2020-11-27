@@ -8,9 +8,9 @@ const axiosInstance = axios.create({
 });
 
 export default {
-    getCharacters: () =>
+    getCharacters: (offset = 0) =>
         axiosInstance({
             'method': 'GET',
-            'url': '/characters',
+            'url': `characters?limit=10&offset=${offset}`,
         })
 }
