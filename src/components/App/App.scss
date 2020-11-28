@@ -1,0 +1,13 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-Height: 100vh;
+    background-color: #FAFAFA;
+
+    &-content {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+}

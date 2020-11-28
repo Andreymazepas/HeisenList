@@ -1,0 +1,20 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    padding: 25px 0;
+    color: white;
+    background: black;
+
+    &-content {
+        display: flex;
+        align-items: center;
+        a {
+            text-decoration: none;
+            color: white;
+            margin: 10px;
+            &:hover {
+                color: grey;
+            }
+        }
+    }
+}
