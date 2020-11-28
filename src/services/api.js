@@ -7,10 +7,12 @@ const axiosInstance = axios.create({
   },
 });
 
-export default {
+const methods = {
   getCharacters: (offset = 0, name = "") =>
     axiosInstance({
       method: "GET",
       url: `characters?name=${name}&limit=10&offset=${offset}`,
     }),
 };
+
+export default methods;
