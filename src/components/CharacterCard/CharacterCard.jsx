@@ -1,26 +1,58 @@
-import React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
+import { FaHeartbeat, FaSkullCrossbones } from "react-icons/fa";
+import "./CharacterCard.scss";
 
 const CharacterCard = (props) => {
+  const [flipped, setFlipped] = useState(false);
   const { character } = props;
   return (
     <div
-      style={{
-        width: "350px",
-        height: "200px",
-        border: "1px solid black",
-        display: "flex",
-        background: character.status === "Deceased" ? "#ffdddd" : "white",
-      }}
+      className="characterCard-container"
+      onClick={() => setFlipped(!flipped)}
     >
-      <div>
-        <img
-          style={{ width: "140px", height: "160px", objectFit: "cover" }}
-          src={character.img}
-          alt="pfp"
-        />
+      <div className={`characterCard ${flipped ? "is-flipped" : ""}`}>
+        <div className="characterCard__face characterCard__face--front">
+          <img
+            src={character.img}
+            alt={character.name}
+            className="characterCard-img"
+          />
+          <div className="characterCard-info">
+            <p>
+              {character.name}
+              {character.status === "Alive" ? (
+                <FaHeartbeat className="characterCard-icon" />
+              ) : (
+                <FaSkullCrossbones className="characterCard-icon" />
+              )}
+            </p>
+          </div>
+        </div>
+        <div className="characterCard__face characterCard__face--back">
+          <p>{character.name}</p>
+          <div>
+            <p>Nickname:</p>
+            <p>{character.nickname}</p>
+          </div>
+          <div>
+            <p>Birthday:</p>
+            <p>{character.birthday}</p>
+          </div>
+          <div>
+            <p>Status:</p>
+            <p>{character.status}</p>
+          </div>
+          <div>
+            <p>Occupation:</p>
+            <p>{character.occupation.join(", ")}</p>
+          </div>
+          <div>
+            <p>Portrayed by:</p>
+            <p>{character.portrayed}</p>
+          </div>
+        </div>
       </div>
-      <div style={{ overflow: "auto" }}>{JSON.stringify(character)}</div>
     </div>
   );
 };
