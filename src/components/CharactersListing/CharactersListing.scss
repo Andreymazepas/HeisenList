@@ -1,43 +1,55 @@
-.charactersListing{
-    flex: 1;
+.charactersListing {
+  flex: 1;
+  min-height: 90vh;
 
-    &-cards{
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        justify-content: space-between;
-        grid-gap: 3rem;
-        margin: 20px;
-    }
+  &-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    justify-content: space-between;
+    grid-gap: 3rem;
+    margin: 20px;
+  }
 
-    &-cardContainer {
-        display: flex;
-        justify-content: center;
-    }
+  &-cardContainer {
+    display: flex;
+    justify-content: center;
+  }
 
-    &-searchForm {
-        width: 70%;
-        margin: auto;
+  &-searchForm {
+    width: 70%;
+    margin: auto;
+    padding: 15px;
+    font-size: 24px;
+    vertical-align: bottom;
+    select {
+      border: 3px solid black;
+      padding: 5px;
+      height: 36px;
+      border-radius: 5px;
+      outline: none;
+      font-size: 18px;
     }
+  }
 }
 
 .loading {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    font-size: 24px;
-    font-weight: 700;
-    &-icon {
-        animation: spin 2s infinite linear;
-        margin-right: 10px;
-        @keyframes spin {
-            0% {
-              transform: rotate(0deg);
-            }
-            100% {
-              transform: rotate(359deg);
-            }
-          }
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-size: 24px;
+  font-weight: 700;
+  &-icon {
+    animation: spin 2s infinite linear;
+    margin-right: 10px;
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(359deg);
+      }
     }
+  }
 }

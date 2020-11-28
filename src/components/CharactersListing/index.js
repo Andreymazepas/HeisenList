@@ -1,1 +1,1 @@
-export {default} from './CharactersListing';
+export { default } from "./CharactersListing";
