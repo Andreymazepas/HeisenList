@@ -1,6 +1,6 @@
 import CharactersListing from "../CharactersListing";
 import Header from "../Header";
-import Footer from '../Footer';
+import Footer from "../Footer";
 import "./App.scss";
 
 // Um wrapper para todos os componentes da tela.

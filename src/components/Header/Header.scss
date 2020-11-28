@@ -1,29 +1,28 @@
 @font-face {
-    font-family: BreakingBad;
-    src: url("../../fonts/BreakingBad.otf") format("opentype");
+  font-family: BreakingBad;
+  src: url("../../fonts/BreakingBad.otf") format("opentype");
 }
 
 .header {
-    height: 70px;
-    background-color: white;
+  height: 70px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+
+  &-title {
     display: flex;
     align-items: center;
-    padding: 15px;
-    @media (max-width: 768px){
-        justify-content: center;
+    &--logo {
+      width: 70px;
+      height: auto;
     }
-
-    &-title{
-        display: flex;
-        align-items: center;
-        &--logo {
-            width: 70px;
-            height: auto;
-        }
-        &--text {
-            font-size: 52px;
-            font-family: 'BreakingBad';
-            
-        }
+    &--text {
+      font-size: 52px;
+      font-family: "BreakingBad";
     }
+  }
 }
