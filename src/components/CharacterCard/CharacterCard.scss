@@ -16,12 +16,13 @@ $infoHeight: 70px;
     width: $cardWidth;
     height: $cardHeight;
     perspective: 600px;
+
     cursor: pointer;
     transition: transform 0.2s;
-    @media (min-width: 768px){
-        &:hover {
-            transform: scale(1.05);
-        }
+    @media (min-width: 768px) {
+      &:hover {
+        transform: scale(1.05);
+      }
     }
   }
 
@@ -39,7 +40,7 @@ $infoHeight: 70px;
     background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 1) 0%,
-        rgba(0,0,0,1) 50%,
+      rgba(0, 0, 0, 1) 50%,
       rgba(255, 255, 255, 0) 100%
     );
     color: white;
@@ -62,25 +63,25 @@ $infoHeight: 70px;
     }
     &--back {
       transform: rotateY(180deg);
-      background-color: rgba(0,0,0,0.8);
+      background-color: rgba(0, 0, 0, 0.8);
       color: white;
       :first-child {
-          text-align: center;
-          font-weight: 700;
+        text-align: center;
+        font-weight: 700;
       }
-       div{
-           display: flex;
-           justify-content: space-between;
-           border-bottom: 1px solid white;
-           padding: 0 15px;
+      div {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid white;
+        padding: 0 15px;
 
-           :first-child {
-            font-weight: 700;
-           }
-           :last-child {
-               text-align: right;
-           }
-       }
+        :first-child {
+          font-weight: 700;
+        }
+        :last-child {
+          text-align: right;
+        }
+      }
     }
   }
 }

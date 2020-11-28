@@ -1,0 +1,21 @@
+.charactersListing{
+    flex: 1;
+
+    &-cards{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        justify-content: space-between;
+        grid-gap: 3rem;
+        margin: 20px;
+    }
+
+    &-cardContainer {
+        display: flex;
+        justify-content: center;
+    }
+
+    &-searchForm {
+        width: 70%;
+        margin: auto;
+    }
+}

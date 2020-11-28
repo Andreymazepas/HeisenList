@@ -3,6 +3,8 @@ import InfiniteScroll from "react-infinite-scroller";
 import { motion } from "framer-motion";
 import api from "../../services/api";
 import CharacterCard from "../CharacterCard";
+import SearchBar from "../SearchBar";
+import "./CharactersListing.scss";
 
 function CharactersListing() {
   const [characters, setCharacters] = useState([]);
@@ -30,8 +32,8 @@ function CharactersListing() {
     fetchData(1);
   }, [searchText]);
 
-  const handleSearch = () => {
-    setSearchText(searchTextInput);
+  const handleSearch = (text) => {
+    setSearchText(text);
   };
 
   const animationSpring = {
@@ -42,34 +44,39 @@ function CharactersListing() {
 
   return (
     <div className="charactersListing">
-      <input
-        type="checkbox"
-        checked={deadFilter}
-        onChange={(e) => setDeadFilter(e.target.checked)}
-      />
+      <div className="charactersListing-searchForm">
+        <SearchBar
+          placeholder="Type a character's name"
+          handleSearch={handleSearch}
+        />
+        <input
+          type="checkbox"
+          checked={deadFilter}
+          onChange={(e) => setDeadFilter(e.target.checked)}
+        />
       <label>Show only deceased characters.</label>
+      </div>
 
-      <input
-        type="text"
-        value={searchTextInput}
-        onChange={(e) => setSearchTextInput(e.target.value)}
-      />
-      <button onClick={handleSearch}>GOOOOOO</button>
-      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={fetchData}
-          hasMore={hasMore}
-          loader={<div>loading...</div>}
-          initialLoad={false}
-        >
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={fetchData}
+        hasMore={hasMore}
+        loader={<div>loading...</div>}
+        initialLoad={false}
+      >
+        <div className="charactersListing-cards">
           {characters.filter(filterDeceased).map((char) => (
-            <motion.div key={char.char_id} layout transition={animationSpring}>
+            <motion.div
+              className="charactersListing-cardContainer"
+              key={char.char_id}
+              layout
+              transition={animationSpring}
+            >
               <CharacterCard key={char.char_id} character={char} />
             </motion.div>
           ))}
-        </InfiniteScroll>
-      </div>
+        </div>
+      </InfiniteScroll>
     </div>
   );
 }
