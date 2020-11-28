@@ -8,12 +8,12 @@ const SearchBar = ({ placeholder, handleSearch }) => {
     <div className="searchbar-wrap">
       <input
         type="text"
-        class="searchbar-input"
+        className="searchbar-input"
         placeholder={placeholder}
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       />
-      <button class="searchbar-button" onClick={() => handleSearch(inputText)}>
+      <button className="searchbar-button" onClick={() => handleSearch(inputText)}>
         <FaSearch />
       </button>
     </div>

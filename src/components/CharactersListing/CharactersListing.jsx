@@ -1,39 +1,39 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { motion } from "framer-motion";
 import api from "../../services/api";
 import CharacterCard from "../CharacterCard";
 import SearchBar from "../SearchBar";
 import "./CharactersListing.scss";
+import { FaSpinner } from "react-icons/fa";
 
 function CharactersListing() {
   const [characters, setCharacters] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [deadFilter, setDeadFilter] = useState(false);
-  const [searchTextInput, setSearchTextInput] = useState("");
   const [searchText, setSearchText] = useState("");
 
-  const fetchData = async (page = 1) => {
-    console.log(page); // pages start at 1 according to infinite-scroller
+  const fetchData = useCallback(async (page = 1) => {
+    // De acordo com o react-infinite-scroller, as paginas começam em 1
     const { data } = await api.getCharacters((page - 1) * 10, searchText);
     setCharacters((prevCharacters) =>
       page === 1 ? data : [...prevCharacters, ...data]
     );
-    setHasMore(data.length === 10);
-    console.log("hasmore: " + hasMore);
-  };
+    setHasMore(data.length === 10); // Receber menos de 10 implica que é o fim da lista
+  }, [searchText]);
 
   const filterDeceased = (char) => {
     return !deadFilter || char.status.match(/^(Deceased|Presumed dead)$/);
   };
 
   useEffect(() => {
-    setCharacters([]);
     fetchData(1);
-  }, [searchText]);
+  }, [fetchData]);
 
   const handleSearch = (text) => {
     setSearchText(text);
+    setCharacters([]);
+    fetchData(1);
   };
 
   const animationSpring = {
@@ -41,6 +41,13 @@ function CharactersListing() {
     damping: 25,
     stiffness: 120,
   };
+
+  const loading = (
+    <div className="loading">
+      <FaSpinner className="loading-icon" size="2em"/>
+      <p>Loading...</p>
+    </div>
+  )
 
   return (
     <div className="charactersListing">
@@ -61,7 +68,7 @@ function CharactersListing() {
         pageStart={0}
         loadMore={fetchData}
         hasMore={hasMore}
-        loader={<div>loading...</div>}
+        loader={loading}
         initialLoad={false}
       >
         <div className="charactersListing-cards">
