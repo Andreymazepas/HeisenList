@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState,  } from "react";
+import PropTypes from "prop-types";
 import { FaSearch } from "react-icons/fa";
 import "./SearchBar.scss";
 
@@ -22,6 +23,7 @@ const SearchBar = ({ placeholder, handleSearch }) => {
       <button
         className="searchbar-button"
         type="submit"
+        data-testid="searchbar-button"
       >
         <FaSearch />
       </button>
@@ -29,3 +31,8 @@ const SearchBar = ({ placeholder, handleSearch }) => {
   );
 };
 export default SearchBar;
+
+SearchBar.propTypes={
+  placeholder: PropTypes.string,
+  handleSearch: PropTypes.func.isRequired,
+}

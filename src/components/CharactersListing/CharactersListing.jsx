@@ -76,6 +76,7 @@ function CharactersListing() {
           name="filterSelect"
           value={filter}
           onChange={(e) => setFilter(e.currentTarget.value)}
+          data-testid="filterSelect"
         >
           <option value="All">All characters</option>
           <option value="Alive">Alive characters only</option>
@@ -90,7 +91,7 @@ function CharactersListing() {
         loader={loading}
         initialLoad={false}
       >
-        <div className="charactersListing-cards">
+        <div data-testid="characterListing" className="charactersListing-cards">
           {characters.filter(filterDeceased).map((char) => (
             <motion.div
               className="charactersListing-cardContainer"
